@@ -1,0 +1,145 @@
+{
+  "name": "Drupal Composer Starter",
+  "description": "Drupal and default modules and themes installed with Composer.",
+  "type": "project",
+  "keywords": [],
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "license": "GPL-2.0+",
+  "authors": [
+    {
+      "name": "Xeno Media, Inc.",
+      "role": "Developers",
+      "email": "contact@xenomedia.com",
+      "homepage": "https://www.xenomedia.com"
+    }
+  ],
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://packages.drupal.org/8"
+    },
+    {
+      "type": "vcs",
+      "url": "https://github.com/xenomedia/actions_remove"
+    },
+    {
+      "type": "vcs",
+      "url": "https://github.com/xenomedia/metatag_remove"
+    },
+    {
+      "type": "vcs",
+      "url": "https://github.com/xenomedia/xenominimal"
+    }
+  ],
+  "require": {
+    "composer/installers": "^1.0.20",
+    "cweagans/composer-patches": "^1.0",
+    "drupal-composer/drupal-scaffold": "^2.0.1",
+    "drupal/admin_toolbar": "^1.0",
+    "drupal/adminimal_theme": "^1.3",
+    "drupal/bootstrap_paragraphs": "2.x-dev",
+    "drupal/console": "^1.0.0-rc8",
+    "drupal/config_split": "^1.0@beta",
+    "drupal/core": "~8",
+    "drupal/ctools": "^3.0",
+    "drupal/dashboard_connector": "^1.0",
+    "drupal/devel": "^1.0@RC",
+    "drupal/diff": "^1.0",
+    "drupal/draggableviews": "1.x-dev",
+    "drupal/field_group": "^1.0@RC",
+    "drupal/google_analytics": "^2.0",
+    "drupal/image_effects": "^1.0",
+    "drupal/imagemagick": "1.x-dev",
+    "drupal/inline_entity_form": "1.x-dev",
+    "drupal/linkit": "dev-5.x",
+    "drupal/paragraphs_edit": "2.x-dev",
+    "drupal/seo_starter": "1.x-dev",
+    "drupal/token": "^1.0",
+    "drupal/view_unpublished": "^1.0@alpha",
+    "drupal/views_infinite_scroll": "^1.1",
+    "drupal/webform": "^5.0@beta",
+    "webflo/drupal-finder": "^0.3.0",
+    "webmozart/path-util": "^2.3",
+    "xenomedia/actions_remove": "dev-master",
+    "xenomedia/metatag_remove": "dev-master",
+    "xenomedia/xenominimal": "dev-master"
+  },
+  "require-dev": {
+    "behat/mink": "~1.7",
+    "behat/mink-goutte-driver": "~1.2",
+    "jcalderonzumba/gastonjs": "~1.0.2",
+    "jcalderonzumba/mink-phantomjs-driver": "~0.3.1",
+    "mikey179/vfsstream": "~1.2",
+    "phpunit/phpunit": ">=4.8.28 <5",
+    "symfony/css-selector": "~2.8"
+  },
+  "conflict": {
+    "drupal/drupal": "*"
+  },
+  "autoload": {
+    "classmap": [
+      "scripts/composer/ScriptHandler.php"
+    ]
+  },
+  "scripts": {
+    "drupal-scaffold": "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
+    "pre-install-cmd": [
+      "DrupalProject\\composer\\ScriptHandler::checkComposerVersion"
+    ],
+    "pre-update-cmd": [
+      "DrupalProject\\composer\\ScriptHandler::checkComposerVersion"
+    ],
+    "post-install-cmd": [
+      "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
+    ],
+    "post-update-cmd": [
+      "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
+    ]
+  },
+  "extra": {
+    "enable-patching": true,
+    "patches": {
+      "drupal/inline_entity_form": {
+        "2367235 - Support entity revision references": "https://www.drupal.org/files/issues/support_entity_revision-2367235-92.patch"
+      },
+      "drupal/draggableviews": {
+        "2867159 - DraggableViews displays multiple node instances when used in multiple views": "https://www.drupal.org/files/issues/draggableviews_displays-2867159-24.patch"
+      }
+    },
+    "installer-paths": {
+      "web/core": [
+        "type:drupal-core"
+      ],
+      "web/libraries/{$name}": [
+        "type:drupal-library"
+      ],
+      "web/modules/contrib/{$name}": [
+        "type:drupal-module"
+      ],
+      "web/modules/custom/{$name}": [
+        "type:drupal-custom-module"
+      ],
+      "web/profiles/contrib/{$name}": [
+        "type:drupal-profile"
+      ],
+      "web/themes/contrib/{$name}": [
+        "type:drupal-theme"
+      ],
+      "web/themes/custom/{$name}": [
+        "type:drupal-custom-theme"
+      ],
+      "drush/contrib/{$name}": [
+        "type:drupal-drush"
+      ]
+    }
+  },
+  "config": {
+    "preferred-install": {
+      "drupal/*": "dist",
+      "xenomedia/*": "dist",
+      "*": "dist"
+    },
+    "sort-packages": true
+  },
+}
